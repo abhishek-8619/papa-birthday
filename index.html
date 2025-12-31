@@ -2,77 +2,113 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Happy Birthday Papa ❤️</title>
 
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(120deg,#f6d365,#fda085);
+    background: linear-gradient(to bottom,#ffe0e0,#fff5d1);
     text-align:center;
-    color:#2c2c2c;
+    overflow-x:hidden;
 }
 
+/* Heading */
 h1{
-    margin-top:20px;
-    color:#7b0000;
-    animation: fadeIn 2s;
+    font-size:2.4rem;
+    color:#8b0000;
+    margin:20px 10px;
 }
 
+/* Music Button */
+button{
+    background:#8b0000;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    font-size:1.1rem;
+    border-radius:40px;
+    margin-bottom:20px;
+}
+
+/* Gallery */
 .gallery{
     display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:1fr;
     gap:20px;
-    padding:30px;
+    padding:20px;
 }
 
 .gallery img{
     width:100%;
-    height:415px;
+    max-width:500px;
+    margin:auto;
+    height:380px;
     object-fit:cover;
-    border-radius:15px;
+    border-radius:20px;
     box-shadow:0 6px 15px rgba(0,0,0,0.3);
-    transition: transform 0.4s;
 }
 
-.gallery img:hover{
-    transform: scale(1.05);
-}
-
+/* Shayari */
 .shayari{
     background:white;
-    width:80%;
-    margin:20px auto;
+    margin:20px;
     padding:25px;
-    border-radius:15px;
-    font-size:20px;
+    border-radius:20px;
+    font-size:1.2rem;
     line-height:1.8;
     box-shadow:0 6px 15px rgba(0,0,0,0.3);
 }
 
-button{
-    background:#7b0000;
-    color:white;
-    border:none;
-    padding:12px 25px;
-    font-size:18px;
-    border-radius:30px;
-    cursor:pointer;
-    margin-bottom:30px;
-}
-
-button:hover{
-    background:#a00000;
-}
-
+/* Footer */
 footer{
-    margin-bottom:20px;
-    font-size:16px;
+    font-size:1rem;
+    margin:20px;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(-20px);}
-    to{opacity:1; transform:translateY(0);}
+/* Floating Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:24px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* Balloons */
+.balloon{
+    position:fixed;
+    bottom:-150px;
+    width:50px;
+    height:65px;
+    background:red;
+    border-radius:50%;
+    animation: balloonUp 10s linear infinite;
+}
+
+.balloon:after{
+    content:'';
+    position:absolute;
+    width:2px;
+    height:40px;
+    background:#555;
+    left:50%;
+    top:65px;
+}
+
+@keyframes balloonUp{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-120vh);}
 }
 </style>
 </head>
@@ -81,12 +117,11 @@ footer{
 
 <h1>🎂 Happy Birthday Papa ❤️</h1>
 
-<!-- Music -->
-<audio id="song" autoplay>
+<audio id="song" loop>
     <source src="papa-meri-jaan.mp3" type="audio/mpeg">
 </audio>
 
-<button onclick="playSong()">▶ Papa Meri Jaan</button>
+<button onclick="document.getElementById('song').play()">▶ Papa Meri Jaan</button>
 
 <div class="gallery">
     <img src="papa1.jpg">
@@ -97,14 +132,13 @@ footer{
 
 <div class="shayari">
     👨‍👦‍❤️‍👨<br>
-    मेरी पहचान आपसे है,<br>
-    मेरी हर उड़ान आपसे है।<br><br>
+    मेरी हर दुआ में आपका नाम आता है,<br>
+    मेरी हर राह में आपका साथ आता है।<br><br>
 
-    थक जाते हैं जब कदम मेरे,<br>
-    तब हिम्मत की मुस्कान आपसे है।<br><br>
+    मैं कितना भी बड़ा हो जाऊँ पापा,<br>
+    आपके सामने आज भी बच्चा बन जाता है।<br><br>
 
-    ❤️ जन्मदिन मुबारक हो पापा ❤️<br>
-    आप मेरी दुनिया, मेरी ताकत, मेरी जान हो।
+    ❤️ जन्मदिन मुबारक हो पापा ❤️
 </div>
 
 <footer>
@@ -112,11 +146,26 @@ footer{
 </footer>
 
 <script>
-function playSong(){
-    document.getElementById("song").play();
+// Floating Hearts
+for(let i=0;i<15;i++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDelay=Math.random()*5+"s";
+    document.body.appendChild(heart);
+}
+
+// Balloons
+for(let i=0;i<6;i++){
+    let balloon=document.createElement("div");
+    balloon.className="balloon";
+    balloon.style.left=Math.random()*100+"vw";
+    balloon.style.background=["red","pink","orange","yellow"][Math.floor(Math.random()*4)];
+    balloon.style.animationDelay=Math.random()*6+"s";
+    document.body.appendChild(balloon);
 }
 </script>
 
 </body>
 </html>
-
